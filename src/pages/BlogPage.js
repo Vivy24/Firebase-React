@@ -1,7 +1,7 @@
-import BlogDetail from "../components/Blog/BlogDetail";
-import { useParams } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import Blog from "../components/Blog/Blog";
 
-const DetailBlogPage = () => {
+const BlogPage = () => {
   const DUMMY_DATABASE = [
     {
       id: "1",
@@ -26,19 +26,21 @@ const DetailBlogPage = () => {
     },
   ];
 
-  const projectID = useParams().id;
-
-  const project = DUMMY_DATABASE.find((project) => {
-    return project.id === projectID;
-  });
-
   return (
-    <BlogDetail
-      title={project.title}
-      author={project.author}
-      content={project.content}
-    />
+    <Container>
+      {DUMMY_DATABASE.map((project) => {
+        return (
+          <Blog
+            key={project.id}
+            id={project.id}
+            author={project.author}
+            title={project.title}
+            content={project.content}
+          />
+        );
+      })}
+    </Container>
   );
 };
 
-export default DetailBlogPage;
+export default BlogPage;

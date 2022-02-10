@@ -1,4 +1,4 @@
-import AddBlog from "../components/AddBlog";
+import AddBlog from "../components/Form/AddBlog";
 
 const AddBlogPage = () => {
   return <AddBlog />;

@@ -8,7 +8,7 @@ import DetailBlogPage from "./pages/DetailBlogPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-
+import BlogPage from "./pages/BlogPage";
 function App() {
   return (
     <div className="App">
@@ -16,10 +16,11 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/blogs" element={<BlogPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/add" element={<AddBlogPage />} />
-        <Route path="/detail/:id" element={<DetailBlogPage />} />
+        <Route path="/blogs/:id" element={<DetailBlogPage />} />
       </Routes>
     </div>
   );

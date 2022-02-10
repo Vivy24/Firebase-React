@@ -1,7 +1,7 @@
 import { Form, Button, Container } from "react-bootstrap";
-import Input from "../UI/input";
+import Input from "../../UI/input";
 
-import { useValidInput } from "../hooks/useValidInput";
+import { useValidInput } from "../../hooks/useValidInput";
 
 const LoginForm = () => {
   const {
@@ -34,7 +34,7 @@ const LoginForm = () => {
   };
 
   return (
-    <Container style={{ maxWidth: "500px", marginTop: "10px" }}>
+    <Container style={{ maxWidth: "500px", marginTop: "40px" }}>
       <h3 style={{ textAlign: "center" }}>Log In</h3>
       <Form onSubmit={handleOnSubmit}>
         <Input

@@ -1,7 +1,7 @@
 import { Form, Button, Container } from "react-bootstrap";
-import { useValidInput } from "../hooks/useValidInput";
+import { useValidInput } from "../../hooks/useValidInput";
 
-import Input from "../UI/input";
+import Input from "../../UI/input";
 
 export const RegisterForm = () => {
   const {
@@ -74,7 +74,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <Container style={{ maxWidth: "500px", marginTop: "10px" }}>
+    <Container style={{ maxWidth: "500px", marginTop: "40px" }}>
       <h3 style={{ textAlign: "center" }}>Register</h3>
       <Form onSubmit={handleOnSubmit}>
         <Input

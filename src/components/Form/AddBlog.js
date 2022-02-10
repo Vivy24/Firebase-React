@@ -1,7 +1,7 @@
 import { Form, FloatingLabel, Button, Container } from "react-bootstrap";
-import { useValidInput } from "../hooks/useValidInput";
+import { useValidInput } from "../../hooks/useValidInput";
 
-import Input from "../UI/input";
+import Input from "../../UI/input";
 const AddBlog = () => {
   const {
     value: enteredTitle,
