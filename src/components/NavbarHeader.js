@@ -7,7 +7,9 @@ const NavbarHeader = (props) => {
     <Navbar className="py-2" bg="light" expand="md">
       <Container>
         <Navbar.Brand className=" h5 " href="#home">
-          <NavLink to="/">Home</NavLink>
+          <NavLink style={{ textDecoration: "none" }} to="/">
+            Home
+          </NavLink>
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="base-navbar-nav" />
@@ -18,12 +20,20 @@ const NavbarHeader = (props) => {
             {props.logged ? (
               <Fragment>
                 <Nav.Item>
-                  <NavLink className="m-3" to="/addBlog">
+                  <NavLink
+                    style={{ textDecoration: "none" }}
+                    className="m-3"
+                    to="/addBlog"
+                  >
                     Add blog
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item>
-                  <NavLink className="m-3" to="/logout">
+                  <NavLink
+                    style={{ textDecoration: "none" }}
+                    className="m-3"
+                    to="/logout"
+                  >
                     Log out
                   </NavLink>
                 </Nav.Item>
@@ -31,12 +41,20 @@ const NavbarHeader = (props) => {
             ) : (
               <Fragment>
                 <Nav.Item>
-                  <NavLink className="m-3" to="/login">
+                  <NavLink
+                    style={{ textDecoration: "none" }}
+                    className="m-3"
+                    to="/login"
+                  >
                     Log In
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item>
-                  <NavLink className="m-3" to="/register">
+                  <NavLink
+                    style={{ textDecoration: "none" }}
+                    className="m-3"
+                    to="/register"
+                  >
                     Register
                   </NavLink>
                 </Nav.Item>
