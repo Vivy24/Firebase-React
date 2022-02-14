@@ -2,15 +2,22 @@ import { Form, Button, Container } from "react-bootstrap";
 import Input from "../../UI/input";
 
 import { useValidInput } from "../../hooks/useValidInput";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const LoginForm = () => {
+  const [loginError, setLoginError] = useState([]);
+
+  const navigate = useNavigate();
+
   const {
-    value: enteredUname,
-    empty: unameEmpty,
-    isTouched: unameTouched,
-    valueChangeHandler: unameChangeHandler,
-    inputBlurHandler: unameBlurHandler,
-    reset: resetUName,
+    value: enteredEmail,
+    empty: emailEmpty,
+    isTouched: emailTouched,
+    valueChangeHandler: emailChangeHandler,
+    inputBlurHandler: emailBlurHandler,
+    reset: resetEmail,
   } = useValidInput(() => {});
 
   const {
@@ -25,29 +32,52 @@ const LoginForm = () => {
   const handleOnSubmit = (event) => {
     event.preventDefault();
 
-    if (!unameEmpty && !passwordEmpty) {
+    if (emailEmpty && passwordEmpty) {
       return;
     }
 
-    resetUName();
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, enteredEmail, enteredPassword)
+      .then((userCredential) => {
+        // signed in
+        const user = userCredential.user;
+        navigate("/");
+        // ...
+      })
+      .catch((error) => {
+        const logInError = {
+          code: error.code,
+          message: error.message,
+        };
+        setLoginError(logInError);
+      });
+
+    resetEmail();
     resetPassword();
   };
 
   return (
     <Container style={{ maxWidth: "500px", marginTop: "40px" }}>
       <h3 style={{ textAlign: "center" }}>Log In</h3>
+      {loginError.message && loginError.message.includes("email") && (
+        <p>Invalid email</p>
+      )}
+
+      {loginError.message && loginError.message.includes("password") && (
+        <p>Invalid password</p>
+      )}
       <Form onSubmit={handleOnSubmit}>
         <Input
           className="mb-3"
-          id="username"
-          label="Username"
-          type="text"
-          placeholder="Enter your username"
-          onChangeHandler={unameChangeHandler}
-          onBlurHandler={unameBlurHandler}
-          enterValue={enteredUname}
-          isTouched={unameTouched}
-          valueEmpty={unameEmpty}
+          id="Email"
+          label="Email"
+          type="email"
+          placeholder="Enter your email"
+          onChangeHandler={emailChangeHandler}
+          onBlurHandler={emailBlurHandler}
+          enterValue={enteredEmail}
+          isTouched={emailTouched}
+          valueEmpty={emailEmpty}
         />
 
         <Input

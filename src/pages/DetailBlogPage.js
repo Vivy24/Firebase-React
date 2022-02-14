@@ -1,8 +1,9 @@
 import BlogDetail from "../components/Blog/BlogDetail";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
+import NavbarHeader from "../components/NavbarHeader";
 
 const DetailBlogPage = () => {
   const projectID = useParams().id;
@@ -36,7 +37,8 @@ const DetailBlogPage = () => {
     return blog.id == projectID;
   });
   return (
-    <div>
+    <Fragment>
+      <NavbarHeader />
       {project && (
         <BlogDetail
           title={project.title}
@@ -44,7 +46,7 @@ const DetailBlogPage = () => {
           content={project.content}
         />
       )}
-    </div>
+    </Fragment>
   );
 };
 

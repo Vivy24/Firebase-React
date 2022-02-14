@@ -1,9 +1,15 @@
 import { Form, Button, Container } from "react-bootstrap";
 import { useValidInput } from "../../hooks/useValidInput";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Input from "../../UI/input";
 
 export const RegisterForm = () => {
+  const [registerError, setRegisterError] = useState({});
+  const navigate = useNavigate();
+
   const {
     value: enteredUname,
     isValid: unameIsValid,
@@ -65,8 +71,22 @@ export const RegisterForm = () => {
     ) {
       return;
     }
-
-    // submit the information (todo);
+    const auth = getAuth();
+    console.log({ auth });
+    createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword)
+      .then((userCredential) => {
+        // signed in;
+        const user = userCredential.user;
+        user.displayName = enteredUname;
+        navigate("/");
+      })
+      .catch((error) => {
+        const registerError = {
+          code: error.code,
+          message: error.message,
+        };
+        setRegisterError(registerError);
+      });
     resetUName();
     resetEmail();
     resetpassword();
@@ -76,6 +96,12 @@ export const RegisterForm = () => {
   return (
     <Container style={{ maxWidth: "500px", marginTop: "40px" }}>
       <h3 style={{ textAlign: "center" }}>Register</h3>
+
+      {registerError.message &&
+        registerError.message.includes("email-already-in-use") && (
+          <p>Email exist , please use another email</p>
+        )}
+
       <Form onSubmit={handleOnSubmit}>
         <Input
           className="mb-3"

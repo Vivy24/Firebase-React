@@ -1,5 +1,3 @@
-import NavbarHeader from "./components/NavbarHeader";
-
 import { Routes, Route } from "react-router-dom";
 
 // pages
@@ -12,15 +10,13 @@ import BlogPage from "./pages/BlogPage";
 function App() {
   return (
     <div className="App">
-      <NavbarHeader />
-
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/blogs" element={<BlogPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/add" element={<AddBlogPage />} />
-        <Route path="/blogsDetail/:id" element={<DetailBlogPage />} />
+        <Route path="/blogs/:id" element={<DetailBlogPage />} />
       </Routes>
     </div>
   );

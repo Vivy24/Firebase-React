@@ -10,7 +10,6 @@ const Input = (props) => {
         onChange={props.onChangeHandler}
         onBlur={props.onBlurHandler}
         value={props.enterValue}
-        aria-describedly={`${props.id}helpers`}
       ></Form.Control>
       <Form.Text id={`${props.id}helpers`} muted>
         {!props.isTouched && props.helpersMess}

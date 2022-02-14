@@ -1,8 +1,24 @@
-import { NavLink } from "react-router-dom";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { NavLink, useNavigate } from "react-router-dom";
+import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { getAuth, signOut } from "firebase/auth";
 
 import { Fragment } from "react";
 const NavbarHeader = (props) => {
+  const auth = getAuth();
+
+  const navigate = useNavigate();
+
+  const logOutHandler = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("successfully");
+
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log({ error });
+      });
+  };
   return (
     <Navbar className="py-2" bg="light" expand="md">
       <Container>
@@ -17,7 +33,7 @@ const NavbarHeader = (props) => {
           <Nav className="me-auto"></Nav>
 
           <Nav className="justify-content-center">
-            {props.logged ? (
+            {props.isLoggedIn ? (
               <Fragment>
                 <Nav.Item>
                   <NavLink
@@ -29,13 +45,7 @@ const NavbarHeader = (props) => {
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item>
-                  <NavLink
-                    style={{ textDecoration: "none" }}
-                    className="m-3"
-                    to="/logout"
-                  >
-                    Log out
-                  </NavLink>
+                  <Button onClick={logOutHandler}>Log out</Button>
                 </Nav.Item>
               </Fragment>
             ) : (
