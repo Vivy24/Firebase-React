@@ -1,6 +1,10 @@
 import { Form, Button, Container } from "react-bootstrap";
 import { useValidInput } from "../../hooks/useValidInput";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -72,14 +76,14 @@ export const RegisterForm = () => {
       return;
     }
     const auth = getAuth();
-    console.log({ auth });
     createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword)
-      .then((userCredential) => {
+      .then(async () => {
         // signed in;
-        const user = userCredential.user;
-        user.displayName = enteredUname;
+        await updateProfile(auth.currentUser, { displayName: enteredUname });
+
         navigate("/");
       })
+
       .catch((error) => {
         const registerError = {
           code: error.code,

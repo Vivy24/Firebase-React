@@ -15,7 +15,7 @@ function App() {
         <Route path="/blogs" element={<BlogPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/add" element={<AddBlogPage />} />
+        <Route path="/addBlog" element={<AddBlogPage />} />
         <Route path="/blogs/:id" element={<DetailBlogPage />} />
       </Routes>
     </div>

@@ -44,31 +44,28 @@ const BlogPage = () => {
       };
 
       fetchData();
+    } else {
+      navigate("/");
     }
   }, []);
 
   return (
     <Fragment>
       <NavbarHeader isLoggedIn={isLoggedIn} />
-
-      {isLoggedIn ? (
-        <Container>
-          {blogs &&
-            blogs.map((project) => {
-              return (
-                <Blog
-                  key={project.id}
-                  id={project.id}
-                  author={project.author}
-                  title={project.title}
-                  content={project.content}
-                />
-              );
-            })}
-        </Container>
-      ) : (
-        navigate("/")
-      )}
+      <Container>
+        {blogs &&
+          blogs.map((project) => {
+            return (
+              <Blog
+                key={project.id}
+                id={project.id}
+                author={project.author}
+                title={project.title}
+                content={project.content}
+              />
+            );
+          })}
+      </Container>
     </Fragment>
   );
 };

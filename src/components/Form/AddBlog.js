@@ -2,7 +2,7 @@ import { Form, FloatingLabel, Button, Container } from "react-bootstrap";
 import { useValidInput } from "../../hooks/useValidInput";
 
 import Input from "../../UI/input";
-const AddBlog = () => {
+const AddBlog = (props) => {
   const {
     value: enteredTitle,
     isValid: titleIsValid,
@@ -32,13 +32,21 @@ const AddBlog = () => {
     if (!(titleIsValid && contentIsValid)) {
       return;
     }
+    const blog = {
+      author: props.username,
+      content: enteredContent,
+      title: enteredTitle,
+    };
+
+    console.log({ blog });
 
     // submit the blog
     resetTitle();
     resetContent();
   };
   return (
-    <Container style={{ maxWidth: "700px" }}>
+    <Container style={{ maxWidth: "700px", marginTop: "40px" }}>
+      <h3 style={{ textAlign: "center" }}>Add a blog</h3>
       <Form onSubmit={onSubmitHandler}>
         <Input
           className="mb-3"
@@ -54,7 +62,7 @@ const AddBlog = () => {
           valueEmpty={titleEmpty}
           valueHasError={titleHasError}
         />
-
+        <Form.Label>Blog Content</Form.Label>
         <FloatingLabel controlId="content" label="Enter your content">
           <Form.Control
             as="textarea"

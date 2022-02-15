@@ -27,7 +27,7 @@ const LoginForm = () => {
     valueChangeHandler: passwordChangeHandler,
     inputBlurHandler: passwordBlurHandler,
     reset: resetPassword,
-  } = useValidInput((password) => {});
+  } = useValidInput(() => {});
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
@@ -41,6 +41,7 @@ const LoginForm = () => {
       .then((userCredential) => {
         // signed in
         const user = userCredential.user;
+        console.log({ user });
         navigate("/");
         // ...
       })
