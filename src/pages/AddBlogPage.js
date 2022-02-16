@@ -18,6 +18,8 @@ const AddBlogPage = () => {
     if (user) {
       const name = user.displayName;
       setUserName(name);
+
+      console.log({ name });
     } else {
       navigate("/");
     }

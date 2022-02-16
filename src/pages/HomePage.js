@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getAuth } from "firebase/auth";
 
+import NotAuthorize from "../components/NotAuthorize";
 const HomePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -15,12 +16,15 @@ const HomePage = () => {
     const user = auth.currentUser;
 
     user ? setIsLoggedIn(true) : setIsLoggedIn(false);
+
+    if (user) {
+      navigate("/blogs");
+    }
   }, []);
 
   return (
     <Fragment>
-      <NavbarHeader isLoggedIn={isLoggedIn} />;
-      {isLoggedIn && navigate("/blogs")}
+      <NotAuthorize />
     </Fragment>
   );
 };

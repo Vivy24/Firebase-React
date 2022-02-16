@@ -1,8 +1,14 @@
 import { Form, FloatingLabel, Button, Container } from "react-bootstrap";
 import { useValidInput } from "../../hooks/useValidInput";
 
+import { collection, addDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+
 import Input from "../../UI/input";
+import { db } from "../../firebase";
 const AddBlog = (props) => {
+  const navigate = useNavigate();
+
   const {
     value: enteredTitle,
     isValid: titleIsValid,
@@ -28,10 +34,13 @@ const AddBlog = (props) => {
     return blog.length > 0;
   });
 
-  const onSubmitHandler = () => {
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+
     if (!(titleIsValid && contentIsValid)) {
       return;
     }
+
     const blog = {
       author: props.username,
       content: enteredContent,
@@ -40,9 +49,15 @@ const AddBlog = (props) => {
 
     console.log({ blog });
 
-    // submit the blog
+    const addBlog = async (blogAdd) => {
+      await addDoc(collection(db, "blog"), blogAdd);
+    };
+    addBlog(blog);
+
     resetTitle();
     resetContent();
+
+    navigate("/blogs");
   };
   return (
     <Container style={{ maxWidth: "700px", marginTop: "40px" }}>
