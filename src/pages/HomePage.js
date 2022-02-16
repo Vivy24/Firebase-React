@@ -1,25 +1,23 @@
-import NavbarHeader from "../components/NavbarHeader";
-
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import NotAuthorize from "../components/NotAuthorize";
 const HomePage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const auth = getAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = auth.currentUser;
+    const auth = getAuth();
 
-    user ? setIsLoggedIn(true) : setIsLoggedIn(false);
-
-    if (user) {
-      navigate("/blogs");
-    }
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const username = auth.currentUser;
+        if (username) {
+          navigate("/blogs");
+        }
+      }
+    });
   }, []);
 
   return (

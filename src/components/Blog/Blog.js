@@ -1,8 +1,11 @@
-import { Card } from "react-bootstrap";
-
+import { Card, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 const Blog = (props) => {
+  const deleteBlogHandler = (event) => {
+    props.deleteHandler(event.target.value);
+  };
+
   return (
     <Card style={{ marginTop: "40px" }}>
       <Card.Body>
@@ -17,6 +20,16 @@ const Blog = (props) => {
           {"... "}
           <NavLink to={`/blogs/${props.id}`}>read more</NavLink>
         </Card.Text>
+
+        {props.delete && (
+          <Button
+            variant="danger"
+            value={`${props.id}`}
+            onClick={deleteBlogHandler}
+          >
+            Delete
+          </Button>
+        )}
       </Card.Body>
     </Card>
   );
