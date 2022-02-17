@@ -21,7 +21,7 @@ const NotAuthorize = () => {
       </Button>
 
       <Button variant="primary">
-        <Link style={{ textDecoration: "none", color: "white" }} to="/login">
+        <Link style={{ textDecoration: "none", color: "white" }} to="/register">
           Register
         </Link>
       </Button>

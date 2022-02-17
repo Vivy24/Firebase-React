@@ -41,7 +41,7 @@ const LoginForm = () => {
       .then((userCredential) => {
         // signed in
         const user = userCredential.user;
-        console.log({ user });
+
         navigate("/");
         // ...
       })

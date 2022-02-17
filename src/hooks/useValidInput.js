@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export const useValidInput = (validateInput) => {
+export const useValidInput = (validateInput, preValue) => {
   const [enteredValue, setEnteredValue] = useState("");
-
   const [isTouched, setIsTouched] = useState(false);
+
+  useEffect(() => {
+    if (preValue) {
+      setEnteredValue(preValue);
+    }
+  }, []);
 
   const valueIsValid = validateInput(enteredValue);
   const empty = enteredValue === "" && isTouched;

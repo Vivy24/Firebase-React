@@ -1,17 +1,19 @@
 import BlogDetail from "../components/Blog/BlogDetail";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, Fragment } from "react";
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import NavbarHeader from "../components/NavbarHeader";
+
+import { Spinner } from "react-bootstrap";
+import { getDataById } from "../components/fetchData/fetchFireBase";
 
 const DetailBlogPage = () => {
   const projectID = useParams().id;
 
-  const [blogs, setBlogs] = useState([]);
-
+  const [blog, setBlog] = useState([]);
+  const [error, setError] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loaded, setLoaded] = useState();
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -21,28 +23,19 @@ const DetailBlogPage = () => {
       if (user) {
         const username = auth.currentUser;
         if (username) {
-          const fetchData = async () => {
-            const database = [];
-            const docref = collection(db, "blog");
-            const noteSnapshot = await getDocs(docref);
+          try {
+            (async () => {
+              const database = await getDataById(projectID);
 
-            if (noteSnapshot.docs.length > 0) {
-              noteSnapshot.forEach((doc) => {
-                const data = doc.data();
-                database.push({
-                  id: doc.id,
-                  author: data.author,
-                  title: data.title,
-                  content: data.content,
-                });
-              });
-            } else {
-              console.log("blogs does not exist");
-            }
-            setBlogs(database);
-          };
-          fetchData();
+              setBlog(database);
+            })();
+          } catch (error) {
+            setError(error);
+          }
+
           user ? setIsLoggedIn(true) : setIsLoggedIn(false);
+
+          setLoaded("done");
         } else {
           navigate("/");
         }
@@ -50,18 +43,28 @@ const DetailBlogPage = () => {
     });
   }, []);
 
-  const project = blogs.find((blog) => {
-    return blog.id == projectID;
-  });
   return (
     <Fragment>
       <NavbarHeader isLoggedIn={isLoggedIn} />
-      {project && (
+      {blog && loaded && !error ? (
         <BlogDetail
-          title={project.title}
-          author={project.author}
-          content={project.content}
+          title={blog.title}
+          author={blog.author}
+          content={blog.content}
         />
+      ) : !loaded ? (
+        <div class="text-center" style={{ marginTop: "40px" }}>
+          <Spinner
+            animation="border"
+            role="status"
+            variant="primary"
+            size="700px"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
+        <p>{error ? error : "No blog to show"}</p>
       )}
     </Fragment>
   );

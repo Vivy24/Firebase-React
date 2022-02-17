@@ -1,5 +1,4 @@
 import { Container } from "react-bootstrap";
-// import { Fragment } from "react";
 
 const BlogDetail = (props) => {
   return (

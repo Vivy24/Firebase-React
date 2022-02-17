@@ -11,13 +11,9 @@ const NavbarHeader = (props) => {
   const logOutHandler = () => {
     signOut(auth)
       .then(() => {
-        console.log("successfully");
-
         navigate("/");
       })
-      .catch((error) => {
-        console.log({ error });
-      });
+      .catch((error) => {});
   };
   return (
     <Navbar className="py-2" bg="light" expand="md">
@@ -42,6 +38,16 @@ const NavbarHeader = (props) => {
                     to="/addBlog"
                   >
                     Add blog
+                  </NavLink>
+                </Nav.Item>
+
+                <Nav.Item>
+                  <NavLink
+                    style={{ textDecoration: "none" }}
+                    className="m-3"
+                    to="/myblogs"
+                  >
+                    My Blogs
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item>

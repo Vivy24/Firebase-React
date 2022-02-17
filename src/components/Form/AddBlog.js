@@ -47,8 +47,6 @@ const AddBlog = (props) => {
       title: enteredTitle,
     };
 
-    console.log({ blog });
-
     const addBlog = async (blogAdd) => {
       await addDoc(collection(db, "blog"), blogAdd);
     };
@@ -98,7 +96,7 @@ const AddBlog = (props) => {
         </Form.Text>
 
         <Button
-          style={{ display: "block", marginLeft: "75%" }}
+          style={{ display: "block", marginLeft: "75%", marginTop: "20px" }}
           type="submit"
           variant="primary"
         >

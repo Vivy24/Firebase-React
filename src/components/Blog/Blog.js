@@ -6,6 +6,10 @@ const Blog = (props) => {
     props.deleteHandler(event.target.value);
   };
 
+  const editBlogHandler = (event) => {
+    props.editHandler(event.target.value);
+  };
+
   return (
     <Card style={{ marginTop: "40px" }}>
       <Card.Body>
@@ -20,7 +24,6 @@ const Blog = (props) => {
           {"... "}
           <NavLink to={`/blogs/${props.id}`}>read more</NavLink>
         </Card.Text>
-
         {props.delete && (
           <Button
             variant="danger"
@@ -28,6 +31,16 @@ const Blog = (props) => {
             onClick={deleteBlogHandler}
           >
             Delete
+          </Button>
+        )}
+        {props.edit && (
+          <Button
+            style={{ marginLeft: "10px" }}
+            variant="primary"
+            value={`${props.id}`}
+            onClick={editBlogHandler}
+          >
+            Edit
           </Button>
         )}
       </Card.Body>

@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import BlogPage from "./pages/BlogPage";
 import MyBlogPage from "./pages/MyBlogPage";
+import EditBlogPage from "./pages/EditBlogPage";
 
 import NotFound from "./components/Form/NotFound";
 function App() {
@@ -21,7 +22,7 @@ function App() {
         <Route path="/addBlog" element={<AddBlogPage />} />
         <Route path="/blogs/:id" element={<DetailBlogPage />} />
         <Route path="/myblogs" element={<MyBlogPage />} />
-
+        <Route path="/editBlogs/:id" element={<EditBlogPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
