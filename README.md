@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Description
+
+A basic blog created written in React, React-Bootstrap and Firebase.
+Include a simple CRUD action: 1. Create a blog 2. Read a blog 3. Update a blog and delete a blog
+Authorize user and protect the page by using firebase authentication. Include register, login, and logout.
+
 ## Available Scripts
 
 In the project directory, you can run:
